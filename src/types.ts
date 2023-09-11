@@ -1,4 +1,5 @@
 import type BudWpEditorQuery from './extension.js'
+import type {Item, Loader} from '@roots/bud-build'
 
 declare module '@roots/bud-framework' {
   interface Modules {
@@ -6,12 +7,12 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
+    'wp-editor-query-loader': Loader
   }
 
   interface Items {
-  }
-
-  interface Rules {
+    'wp-editor': Item,
+    'postcss': Item
   }
 
   interface Bud {

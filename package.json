@@ -9,7 +9,8 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./types": "./lib/types.js"
+    "./types": "./lib/types.js",
+    "./wp-editor-query-loader": "./lib/loaders/wp-editor-query-loader.js"
   },
   "typesVersions": {
     "*": {
@@ -34,5 +35,8 @@
     "tslib": "2.6.2",
     "webpack": "5.88.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "css-mediaquery": "^0.1.2",
+    "postcss": "^8.4.29"
+  }
 }
