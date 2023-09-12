@@ -2,12 +2,35 @@ import mediaquery from 'css-mediaquery'
 import postcss from 'postcss'
 
 const unwrapAndBubble = atRule => {
-  if (atRule.nodes.length > 0 && atRule.nodes[0].type == 'decl') {
+  if (atRule.nodes && atRule.nodes.length > 0 && atRule.nodes[0].type == 'decl') {
     const ghostNode = new postcss.Rule({selector: atRule.parent.selector})
     ghostNode.append(atRule.clone().nodes)
     atRule.replaceWith(atRule.nodes)
-    atRule.remove()
   }
+}
+
+const shouldReplaceItself = ast => {
+  return (
+    ast.length < 2 &&
+    (isMediaQueryForEditor(ast) || isMediaQueryForFrontend(ast))
+  )
+}
+
+const isMediaQueryForEditor = ast => {
+  return (
+    ast.filter(
+      a => a.expressions.filter(e => e.feature === `wp-editor`).length > 0,
+    ).length > 0
+  )
+}
+
+const isMediaQueryForFrontend = ast => {
+  return (
+    ast.filter(
+      a =>
+        a.expressions.filter(e => e.feature === `wp-editor`).length === 0,
+    ).length > 0
+  )
 }
 
 export const ExtractEditorRules = {
@@ -22,20 +45,19 @@ export const ExtractEditorRules = {
         root.nodes = variables.extracted.nodes
         root.cleanRaws()
       },
-      AtRule(atRule) {
-        if (atRule.name === `media`) {
+      AtRule: {
+        media: atRule => {
+          if (atRule.params.indexOf('wp-editor') === -1) return
+
           const ast = mediaquery.parse(atRule.params)
-          if (
-            ast.length == 1 &&
-            ast[0].expressions[0].feature == 'wp-editor'
-          ) {
+
+          if (isMediaQueryForEditor(ast)) {
             // The block is exclusively for the editor.
             unwrapAndBubble(atRule)
             return variables.extracted.append(atRule.nodes)
           }
-        }
-
-        atRule.remove()
+          atRule.remove()
+        },
       },
     }
   },
@@ -45,15 +67,21 @@ export const RemoveEditorRules = {
   postcssPlugin: 'WpEditorRemoveRules',
   AtRule: {
     media: atRule => {
+
+      if (atRule.params.indexOf('wp-editor') === -1) return
+
       const ast = mediaquery.parse(atRule.params)
-      if (
-        ast.length == 1 &&
-        ast[0].type === 'screen' &&
-        ast[0].expressions[0].feature == 'wp-editor'
-      ) {
+
+      if (isMediaQueryForFrontend(ast)) {
         unwrapAndBubble(atRule)
-        return atRule.replaceWith(atRule.nodes)
+
+        if (shouldReplaceItself(ast)) {
+          return atRule.replaceWith(atRule.nodes)
+        }
+
+        return
       }
+
       atRule.remove()
     },
   },

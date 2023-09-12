@@ -1,4 +1,3 @@
-
 import type BudWpEditorQuery from './extension.js'
 import type {Item, Loader} from '@roots/bud-build'
 

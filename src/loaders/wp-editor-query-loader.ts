@@ -6,6 +6,8 @@ import {ExtractEditorRules, RemoveEditorRules} from '../postcss.js'
 
 interface Options {}
 
+const matchWpEditorUntilEndOfExpression = /,?(and|not)?\s*?\(\s?wp-editor\s?\).*(?=[{])/g;
+
 export default function (this: LoaderContext<Options>, source) {
   const callback = this.async()
   const parsed = parse(this.resourcePath)
@@ -22,7 +24,7 @@ export default function (this: LoaderContext<Options>, source) {
       const emitPath = join(`editor`, parsed.base)
 
       if (extracted.toString().length > 0)
-        this.emitFile(emitPath, extracted.toString())
+        this.emitFile(emitPath, extracted.toString().replace(matchWpEditorUntilEndOfExpression, ''))
 
       /**
        * Remove the editor specific css from the source file
@@ -31,7 +33,7 @@ export default function (this: LoaderContext<Options>, source) {
       postcss([RemoveEditorRules])
         .process(source, {from: parsed.base})
         .then(result => {
-          callback(null, result.toString())
+          callback(null, result.toString().replace(matchWpEditorUntilEndOfExpression, ''))
         })
     })
 }

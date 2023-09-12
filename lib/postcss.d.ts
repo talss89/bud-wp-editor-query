@@ -3,7 +3,9 @@ export declare const ExtractEditorRules: {
   prepare(): {
     Once(): void
     OnceExit(root: any): void
-    AtRule(atRule: any): any
+    AtRule: {
+      media: (atRule: any) => any
+    }
   }
 }
 export declare const RemoveEditorRules: {

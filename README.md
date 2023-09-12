@@ -17,23 +17,39 @@ That's it. Install it. Editor stylesheet will be at `./dist/editor/<module>.css`
 ## Syntax
 
 ```css
-
 @media all, (wp-editor) {
+  /* Style is in both main and editor CSS */
 
-    /* Style is in both main and editor CSS */
-
-    .your-styles-here {
-        color: blue;
-    }
+  .your-styles-here {
+    color: blue;
+  }
 }
 
 @media (wp-editor) {
+  /* Style is ONLY in editor CSS */
 
-    /* Style is ONLY in editor CSS */
-
-    .your-styles-here {
-        color: blue;
-    }
+  .your-styles-here {
+    color: blue;
+  }
 }
 
+/* Nesting is OK... */
+
+@media (wp-editor) {
+  @media screen and (min-width: 1024px) {
+    .your-style-here {
+      width: 50%;
+    }
+  }
+}
+
+/* Non standard bubble-up... */
+
+.parent {
+  color: red;
+
+  @media (wp-editor) {
+    color: blue;
+  }
+}
 ```
