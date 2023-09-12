@@ -1,8 +1,14 @@
 export declare const ExtractEditorRules: {
-    postcssPlugin: string;
-    AtRule(atRule: any): void;
-};
+  postcssPlugin: string
+  prepare(): {
+    Once(): void
+    OnceExit(root: any): void
+    AtRule(atRule: any): any
+  }
+}
 export declare const RemoveEditorRules: {
-    postcssPlugin: string;
-    AtRule(atRule: any): any;
-};
+  postcssPlugin: string
+  AtRule: {
+    media: (atRule: any) => any
+  }
+}
