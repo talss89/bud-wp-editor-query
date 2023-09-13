@@ -1,5 +1,7 @@
 # bud-wp-editor-query
 
+**Use with Bud `^6.16.1`**
+
 Extracts wp-editor styles into a separate stylesheet. For WordPress FSE themes. A rewrite of the now defunct https://github.com/talss89/wp-editor-query-plugin
 
 Thanks to [@kellymears](https://github.com/kellymears) and [@strarsis](https://github.com/strarsis) for their help on this.
