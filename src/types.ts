@@ -15,7 +15,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
-    'editor-css': Rule
+    'sass': Rule
   }
 
   interface Bud {}

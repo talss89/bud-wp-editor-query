@@ -11,7 +11,7 @@ declare module '@roots/bud-framework' {
         'wp-editor': Item;
     }
     interface Rules {
-        'editor-css': Rule;
+        'sass': Rule;
     }
     interface Bud {
     }

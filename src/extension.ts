@@ -22,9 +22,16 @@ export default class BudWpEditorQuery extends Extension<
     )
     bud.build.setItem(`wp-editor`, {
       loader: 'wp-editor-query-loader',
-      options: {
-        frontend: false,
-      },
+      options: {},
+    })
+  }
+
+  @bind
+  public override async configAfter(bud: Bud) {
+
+    bud.build.rules.css?.setUse((items = []) => {
+      items.splice(items.indexOf('postcss'), 0, 'wp-editor')
+      return items
     })
 
     bud.build.rules.css?.setUse((items = []) => {
@@ -32,6 +39,20 @@ export default class BudWpEditorQuery extends Extension<
       return items
     })
 
-    bud.build.setRule('editor-css', {...bud.build.rules?.css})
+    bud.build.rules.sass?.setUse((items = []) => {
+      items.splice(items.indexOf('postcss'), 0, 'wp-editor')
+      return items
+    })
+
+    bud.build.rules['css-module']?.setUse((items = []) => {
+      items.splice(items.indexOf('postcss'), 0, 'wp-editor')
+      return items
+    })
+
+    bud.build.rules['sass-module']?.setUse((items = []) => {
+      items.splice(items.indexOf('postcss'), 0, 'wp-editor')
+      return items
+    })
   }
+
 }
