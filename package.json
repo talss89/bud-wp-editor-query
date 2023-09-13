@@ -1,6 +1,6 @@
 {
   "name": "bud-wp-editor-query",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Extract WordPress editor styles and split into another stylesheet using specialised media queries",
   "main": "index.js",
   "repository": "https://github.com/talss89/bud-wp-editor-query",
