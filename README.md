@@ -8,13 +8,17 @@ Thanks to [@kellymears](https://github.com/kellymears) and [@strarsis](https://g
 
 This is based off the refactor and suggestions that [@kellymears made in this PR](https://github.com/talss89/wp-editor-query-plugin/pull/2).
 
+*This is an early release, and may contain bugs. Please raise issues here - I will be maintaining this actively.*
+
 ## Install
 
 `npm install bud-wp-editor-query --save-dev` or `yarn add bud-wp-editor-query -D`
 
 ## How to use
 
-That's it. Install it. Editor stylesheet will be at `./dist/editor/<module>.css`
+1. Install it.
+2. Mark your stylesheet using the `@media (wp-editor)` syntax below.
+3. Your editor styles will be extracted to `./dist/editor/<module>.css` (or `./public/editor/<module>.css` if you're using Sage).
 
 ## Syntax
 
