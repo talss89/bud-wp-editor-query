@@ -3,8 +3,6 @@ import postcss from 'postcss'
 
 const unwrapAndBubble = atRule => {
   if (atRule.nodes && atRule.nodes.length > 0 && atRule.nodes[0].type == 'decl') {
-    const ghostNode = new postcss.Rule({selector: atRule.parent.selector})
-    ghostNode.append(atRule.clone().nodes)
     atRule.replaceWith(atRule.nodes)
   }
 }
