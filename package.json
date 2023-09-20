@@ -54,7 +54,5 @@
   "dependencies": {
     "css-mediaquery": "^0.1.2"
   },
-  {
-    "bud": {"version": ">=6.16.0"}
-  }
+  "bud": {"version": ">=6.16.0"}
 }
