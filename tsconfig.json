@@ -37,7 +37,8 @@
       "@roots/bud-extensions",
       "@roots/bud-support",
       "@roots/bud-api",
-      "@roots/bud-postcss"
+      "@roots/bud-postcss",
+      "@roots/bud-tailwindcss"
     ]
   },
   "include": ["./src"],

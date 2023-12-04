@@ -22,8 +22,11 @@ export default class BudWpEditorQuery extends Extension<
     )
     bud.build.setItem(`wp-editor`, {
       loader: 'wp-editor-query-loader',
-      options: {},
-    })
+      options: {
+        bud: bud,
+        tailwind: await this.resolve(`tailwindcss`, import.meta.url)
+      },
+    }) 
   }
 
   @bind

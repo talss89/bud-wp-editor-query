@@ -18,7 +18,9 @@ declare module '@roots/bud-framework' {
     'sass': Rule
   }
 
-  interface Bud {}
+  interface Bud {
+
+  }
 
   interface Context {}
 }
